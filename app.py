@@ -33,8 +33,11 @@ def my_form_post():
 
     #Stopword Removal
     stopword_removal=[]
-    for sent in stemmed_text:
-        stopword_removal.append(tokenizer.WordTokenizer(sent,keep_punctuations=False,keep_stopwords=False)) 
+    if len(sent_tokens) > 1:
+        for sent in stemmed_text:
+            stopword_removal.append(tokenizer.WordTokenizer(sent,keep_punctuations=False,keep_stopwords=False)) 
+    else:
+        stopword_removal.append(tokenizer.WordTokenizer(stemmed_text,keep_punctuations=False,keep_stopwords=False))
     print("After Stop Word Removal")
     print(stopword_removal)
 
@@ -45,11 +48,12 @@ def my_form_post():
 
     input_sentence=stemmed_text
     for sent in input_sentence:
-        list_items=sent.split(" ")
+        list_items=input_sentence
+        if " " in sent:
+            list_items=sent.split(" ")
         for word in list_items:
             if word not in stopwords:
                 tot_words+=1
-                print(word)
                 if word in positive_data:
                     pos_cnt+=1
                     continue
