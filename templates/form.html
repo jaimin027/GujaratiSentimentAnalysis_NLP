@@ -29,8 +29,19 @@ table, th, td {
 		</div>
         {% if final_verdict %}
 		
-<!--result start -->		
-      </br></br>  <div align="center">
+<!--result start -->	
+<div class="container">
+  <h1>Pre Processing Stages</h1>
+  <h3>-> Sentence Tokenization</h3>
+  <p>{{sent_tokens}}</p>
+  <h3>-> Word Tokenization</h3>
+  <p>{{word_tokens}}</p>
+  <h3>-> Stemming</h3>
+  <p>{{stemmed_text}}</p>
+  <h3>-> Stopword Removal</h3>
+  <p>{{stopword_removal}}</p>    
+</div>	
+      <div align="center">
            </br>  </br>
 		   <h2 class="bg-success text-white">The Sentiment of</h2>
 		   '{{ given_text }}' 
@@ -69,6 +80,7 @@ table, th, td {
 <!--result end -->			
 		
 		
-  </div>  </body>
+  </div>
+  </body>
 </html>
 
