@@ -1,4 +1,4 @@
-from utils.stopwords import prose_stopwords, poetry_stopwords
+from utils.stopwords import stopwords
 import re
 
 def WordTokenizer(data, corpus='poetry', keep_punctuations=True, keep_stopwords = True):
@@ -14,14 +14,14 @@ def WordTokenizer(data, corpus='poetry', keep_punctuations=True, keep_stopwords 
     if not keep_stopwords and corpus=='poetry':
         a = []
         for word in data:
-        	if word not in poetry_stopwords:
+        	if word not in stopwords:
         		a.append(word)
         return a
 
     if not keep_stopwords and corpus=='prose':
         a = []
         for word in data:
-        	if word not in prose_stopwords:
+        	if word not in stopwords:
         		a.append(word)
         return a
 

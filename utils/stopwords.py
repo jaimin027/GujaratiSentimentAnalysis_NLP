@@ -1,4 +1,4 @@
-prose_stopwords = ['હે',
+prose_stopwords = ['હે','છુ','',
              'છે',
              'કે',
              'જો',

@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template
 import tokenizer
 from stemmer import Stemmer
-from utils.sentiment import positive_data,negative_data,guj_stopwords
+from utils.sentiment import positive_data,negative_data
 from utils.stopwords import stopwords
 
 app = Flask(__name__)
@@ -46,24 +46,25 @@ def my_form_post():
     neutral_cnt=0
     tot_words=0
 
-    input_sentence=stemmed_text
+    input_sentence=stopword_removal
+
     for sent in input_sentence:
-        list_items=input_sentence
-        if " " in sent:
-            list_items=sent.split(" ")
-        for word in list_items:
+        for word in sent:
             if word not in stopwords:
                 tot_words+=1
+                print(word)
                 if word in positive_data:
+                    print(word,"positive")
                     pos_cnt+=1
                     continue
                 if word in negative_data:
+                    print(word,"negative")
                     neg_cnt+=1
                     continue
                 neutral_cnt+=1
 
     
-    
+    print(pos_cnt,neg_cnt,neutral_cnt)
     if (pos_cnt>neg_cnt or pos_cnt>neutral_cnt):
         final_verdict="Positive"
     elif (neg_cnt>pos_cnt or neg_cnt>neutral_cnt):
