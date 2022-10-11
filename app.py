@@ -3,6 +3,7 @@ import tokenizer
 from stemmer import Stemmer
 from utils.sentiment import positive_data,negative_data
 from utils.stopwords import stopwords
+from utils.lemma import guj_lemma
 
 app = Flask(__name__)
 
@@ -48,9 +49,15 @@ def my_form_post():
 
     input_sentence=stopword_removal
 
+    after_lemma=[]
+
+
     for sent in input_sentence:
         for word in sent:
+            if word in guj_lemma:
+                word=guj_lemma[word]
             if word not in stopwords:
+                after_lemma.append(word)
                 tot_words+=1
                 print(word)
                 if word in positive_data:
@@ -74,7 +81,7 @@ def my_form_post():
 
     return render_template('form.html', given_text=given_text,final_verdict=final_verdict,pos=round(pos_cnt/tot_words,2),
     neg=round(neg_cnt/tot_words,2),neutral=round(neutral_cnt/tot_words,2),
-    sent_tokens=sent_tokens,word_tokens=word_tokens,stemmed_text=stemmed_text,stopword_removal=stopword_removal)
+    sent_tokens=sent_tokens,word_tokens=word_tokens,stemmed_text=stemmed_text,stopword_removal=stopword_removal,after_lemma=after_lemma)
 
 if __name__ == "__main__":
     app.run(debug=True, host="127.0.0.1", port=5002, threaded=True)
